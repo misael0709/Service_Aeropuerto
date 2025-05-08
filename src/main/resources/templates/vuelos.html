@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyWings - Resultados de vuelos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .flight-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .flight-header {
+            background-color: #f1f8ff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .flight-body {
+            padding: 16px;
+        }
+        .flight-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .flight-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        .sticky-sidebar {
+            position: sticky;
+            top: 20px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .text-sky {
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="/index" class="d-flex align-items-center gap-2 text-decoration-none">
+                    <i class="bi bi-airplane text-sky fs-4"></i>
+                    <span class="fs-4 fw-bold text-sky">SkyWings</span>
+                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="/login" class="btn btn-outline-primary btn-sm d-none d-md-block">Iniciar Sesión</a>
+                    <a href="/form_registros" class="btn btn-primary btn-sm d-none d-md-block">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4">
+        <div class="mb-4">
+            <div class="card">
+                <div class="card-body p-4">
+                    <div class="mb-3">
+                        <h2 class="h5 fw-semibold mb-2">Tu búsqueda</h2>
+                        <div class="d-flex flex-wrap align-items-center gap-2 small">
+                            <span class="fw-medium" id="origen-ciudad">Madrid</span>
+                            <i class="bi bi-arrow-right"></i>
+                            <span class="fw-medium" id="destino-ciudad">París</span>
+                            <span class="mx-2">|</span>
+                            <span id="fecha-ida">2025-05-01</span>
+                            <span class="mx-2">|</span>
+                            <span id="pasajeros-count">1 pasajero</span>
+                            <span class="mx-2">|</span>
+                            <span id="clase-vuelo">Económica</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm w-100 w-md-auto">
+                        <i class="bi bi-funnel me-2"></i>
+                        Modificar búsqueda
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="card sticky-sidebar">
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-semibold mb-3">Filtros</h3>
+
+                        <div class="space-y-4">
+                            <div class="mb-4">
+                                <h4 class="fw-medium mb-2">Precio</h4>
+                                <input type="range" class="form-range" min="0" max="1000" step="10">
+                                <div class="d-flex justify-content-between small mt-1">
+                                    <span>0€</span>
+                                    <span>1000€</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="fw-medium mb-2">Aerolíneas</h4>
+                                <div class="space-y-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="airline-1" checked>
+                                        <label class="form-check-label" for="airline-1">SkyWings</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="airline-2" checked>
+                                        <label class="form-check-label" for="airline-2">Air Europa</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="airline-3" checked>
+                                        <label class="form-check-label" for="airline-3">Iberia</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="airline-4" checked>
+                                        <label class="form-check-label" for="airline-4">Air France</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="airline-5" checked>
+                                        <label class="form-check-label" for="airline-5">Vueling</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="fw-medium mb-2">Horario de salida</h4>
+                                <div class="space-y-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="time-1" checked>
+                                        <label class="form-check-label" for="time-1">Mañana (06:00 - 12:00)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="time-2" checked>
+                                        <label class="form-check-label" for="time-2">Tarde (12:00 - 18:00)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="time-3" checked>
+                                        <label class="form-check-label" for="time-3">Noche (18:00 - 00:00)</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="fw-medium mb-2">Escalas</h4>
+                                <div class="space-y-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="stops-1" checked>
+                                        <label class="form-check-label" for="stops-1">Directo</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="stops-2" checked>
+                                        <label class="form-check-label" for="stops-2">1 escala</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary w-100">Aplicar filtros</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="mb-5">
+                    <h2 class="h4 fw-bold mb-3">Vuelos de ida</h2>
+                    <div class="space-y-3">
+                        <!-- Vuelo 1 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="SkyWings" class="flight-logo">
+                                        <span class="fw-medium">SkyWings</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">08:30</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium" id="origen-1">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 15m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">10:45</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium" id="destino-1">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">189,99€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 2 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Air Europa" class="flight-logo">
+                                        <span class="fw-medium">Air Europa</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">10:15</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 15m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">12:30</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">175,50€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 3 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Iberia" class="flight-logo">
+                                        <span class="fw-medium">Iberia</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">14:45</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 25m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">17:10</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">210,00€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 4 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Air France" class="flight-logo">
+                                        <span class="fw-medium">Air France</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">16:30</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 30m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">19:00</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">195,75€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 5 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Vueling" class="flight-logo">
+                                        <span class="fw-medium">Vueling</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">19:20</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 20m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">21:40</span>
+                                            <span class="small text-muted">1 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">168,25€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vuelos de regreso -->
+                <div class="mb-5">
+                    <h2 class="h4 fw-bold mb-3">Vuelos de regreso</h2>
+                    <div class="space-y-3">
+                        <!-- Vuelo 6 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="SkyWings" class="flight-logo">
+                                        <span class="fw-medium">SkyWings</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">09:15</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 15m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">11:30</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">192,50€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 7 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Air Europa" class="flight-logo">
+                                        <span class="fw-medium">Air Europa</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">12:30</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 15m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">14:45</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">178,75€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vuelo 8 -->
+                        <div class="flight-card card">
+                            <div class="flight-header card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/placeholder.svg" alt="Iberia" class="flight-logo">
+                                        <span class="fw-medium">Iberia</span>
+                                    </div>
+                                    <span class="badge bg-success">Directo</span>
+                                </div>
+                            </div>
+                            <div class="flight-body card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">15:20</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">París</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="small text-muted">2h 20m</span>
+                                            <div class="border-top w-100 my-1"></div>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column text-center">
+                                            <span class="fw-bold fs-5">17:40</span>
+                                            <span class="small text-muted">8 mayo 2025</span>
+                                            <span class="fw-medium">Madrid</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="flight-price">205,25€</div>
+                                        <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container">
+            <div class="text-center text-secondary small">
+                &copy; <span id="current-year">2025</span> SkyWings. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Actualizar el año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Aquí podrías añadir más funcionalidad JavaScript si fuera necesario
+        // Por ejemplo, para actualizar los datos basados en parámetros de búsqueda
+    </script>
+</body>
+</html>
