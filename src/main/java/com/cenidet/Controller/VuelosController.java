@@ -1,32 +1,26 @@
-package com.cenidet.Controller;
+package com.cenidet.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.cenidet.implementacion.VuelosImpl;
-import com.cenidet.modelos.Vuelos;
+import com.cenidet.entity.Vuelos;
+import com.cenidet.service.VuelosService;
 
-@RestController
-@RequestMapping("/api/vuelos")
-@CrossOrigin(origins = "http:localhost:8080")
+@Controller
 public class VuelosController {
 
 	@Autowired
-	private VuelosImpl vuelos;
+	private VuelosService service;
 	
-	@GetMapping
-	public List<Vuelos> getAllVuelos(){
-		return vuelos.findAll();
+	@RequestMapping("/verVuelos")
+	public String verVuelos(Model m) {
+		List<Vuelos> lista = service.listaVuelos();
+		m.addAttribute("Vuelos",lista);
+		return null;
 	}
 	
-	@GetMapping("/test")
-	public String test() {
-	    List<Vuelos> lista = vuelos.findAll();
-	    return "Número de vuelos: " + (lista != null ? lista.size() : "null");
-	}
 }

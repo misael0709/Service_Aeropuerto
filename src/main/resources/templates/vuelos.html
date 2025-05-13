@@ -339,7 +339,7 @@
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
         // Script de la tabla que muestra vuelos
-		const API_URL = 'http://localhost:8080/api/products';
+		const API_URL = 'http://localhost:8080/verVuelos';
 		const loadFlights = async () => {
 		    const response = await fetch(API_URL);
 		    const flights = await response.json();
@@ -351,8 +351,8 @@
 		            <tr>
 		                <td class="align-middle">
 		                    <div class="d-flex align-items-center gap-2">
-		                        <img src="${'/placeholder.svg'}" alt="${flight.airline}" class="flight-logo" style="height: 24px;">
-		                        <span class="fw-medium">${flight.airline}</span>
+		                        <img src="${'/placeholder.svg'}" alt="${flight.aerolinea}" class="flight-logo" style="height: 24px;">
+		                        <span class="fw-medium">${flight.aerolinea}</span>
 		                    </div>
 		                </td>
 		                <td class="align-middle">
@@ -362,30 +362,30 @@
 		                </td>
 		                <td class="align-middle">
 		                    <div class="d-flex flex-column">
-		                        <span class="fw-bold">${flight.departureTime}</span>
-		                        <span class="small text-muted">${flight.departureDate}</span>
-		                        <span class="fw-medium">${flight.origin}</span>
+		                        <span class="fw-bold">${flight.fecha_salida}</span>
+		                        <span class="small text-muted">${flight.fecha_salida}</span>
+		                        <span class="fw-medium">${flight.pais}</span>
 		                    </div>
 		                </td>
 		                <td class="align-middle text-center">
 		                    <div class="d-flex flex-column align-items-center">
-		                        <span class="small text-muted">${flight.duration}</span>
+		                        <span class="small text-muted">${flight.estado}</span>
 		                        <div class="border-top w-100 my-1"></div>
 		                        <i class="bi bi-arrow-right"></i>
 		                    </div>
 		                </td>
 		                <td class="align-middle">
 		                    <div class="d-flex flex-column">
-		                        <span class="fw-bold">${flight.arrivalTime}</span>
-		                        <span class="small text-muted">${flight.arrivalDate}</span>
-		                        <span class="fw-medium">${flight.destination}</span>
+		                        <span class="fw-bold">${flight.fecha_llegada}</span>
+		                        <span class="small text-muted">${flight.fecha_llegada}</span>
+		                        <span class="fw-medium">${flight.pais}</span>
 		                    </div>
 		                </td>
 		                <td class="align-middle text-center">
-		                    <div class="flight-price fw-bold">${flight.price}€</div>
+		                    <div class="flight-price fw-bold">${flight.precio}€</div>
 		                </td>
 		                <td class="align-middle text-center">
-		                    <button onclick="selectFlight(${flight.id})" class="btn btn-primary btn-sm">Seleccionar</button>
+		                    <button onclick="selectFlight(${flight.id_vuelos})" class="btn btn-primary btn-sm">Seleccionar</button>
 		                </td>
 		            </tr>`;
 		    });
