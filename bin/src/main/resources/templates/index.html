@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyWings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .bg-sky-50 { background-color: #f0f9ff; }
+    .text-sky-600 { color: #0284c7; }
+    .bg-sky-100 { background-color: #e0f2fe; }
+    .text-sky-400 { color: #38bdf8; }
+    .icon-placeholder { width: 24px; height: 24px; background-color: #ccc; display: inline-block; border-radius: 50%; }
+  </style>
+</head>
+<body class="bg-sky-50">
+
+  <header class="bg-white shadow-sm">
+    <div class="container py-4 d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <a href="/" class="d-flex align-items-center text-decoration-none text-primary">
+          <i class="bi bi-airplane me-2"></i>
+          <span class="fs-4 fw-bold">SkyWings</span>
+        </a>
+      </div>
+      <nav class="d-none d-md-flex gap-3">
+        <a href="/" class="text-decoration-none text-dark">Inicio</a>
+        <a href="/vuelos" class="text-decoration-none text-dark">Vuelos</a>
+        <a href="/destinos" class="text-decoration-none text-dark">Destinos</a>
+        <a href="/contacto" class="text-decoration-none text-dark">Contacto</a>
+      </nav>
+      <div class="d-flex gap-2 align-items-center">
+        <a href="login" class="btn btn-outline-primary btn-sm">
+          Iniciar Sesión
+        </a>
+        <a href="/form_registros" class="btn btn-primary btn-sm d-none d-md-flex">Registrarse</a>
+        <button class="btn btn-link d-md-none">
+          <span class="icon-placeholder"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="py-5 px-3">
+      <div class="container text-center">
+        <h1 class="display-5 fw-bold text-dark">Descubre el mundo con SkyWings</h1>
+        <p class="text-muted lead mx-auto mb-5" style="max-width: 600px;">
+          Encuentra los mejores vuelos a los destinos más increíbles del mundo a precios competitivos.
+        </p>
+        <div class="card shadow">
+          <div class="card-body">
+            <div class="container my-5 p-4 bg-light rounded shadow-sm">
+              <!-- Tipo de viaje -->
+              <div class="btn-group w-100 mb-4" role="group">
+                <input type="radio" class="btn-check" name="tipo_viaje" id="ida_vuelta" autocomplete="off" checked>
+                <label class="btn btn-outline-secondary" for="ida_vuelta">Ida y vuelta</label>
+
+                <input type="radio" class="btn-check" name="tipo_viaje" id="solo_ida" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="solo_ida">Solo ida</label>
+              </div>
+
+              <!-- Formulario de búsqueda -->
+              <form>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="origen" class="form-label">Origen</label>
+                    <select id="origen" class="form-select">
+                      <option selected>Selecciona origen</option>
+                      <option>Ciudad A</option>
+                      <option>Ciudad B</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="destino" class="form-label">Destino</label>
+                    <select id="destino" class="form-select">
+                      <option selected>Selecciona destino</option>
+                      <option>Ciudad X</option>
+                      <option>Ciudad Y</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="fecha_salida" class="form-label">Fecha de salida</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                      <input type="date" class="form-control" id="fecha_salida">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="fecha_regreso" class="form-label">Fecha de regreso</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                      <input type="date" class="form-control" id="fecha_regreso">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="pasajeros" class="form-label">Pasajeros</label>
+                    <select id="pasajeros" class="form-select">
+                      <option selected>1 Pasajero</option>
+                      <option>2 Pasajeros</option>
+                      <option>3 Pasajeros</option>
+                      <option>4+ Pasajeros</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="clase" class="form-label">Clase</label>
+                    <select id="clase" class="form-select">
+                      <option selected>Económica</option>
+                      <option>Ejecutiva</option>
+                      <option>Primera Clase</option>
+                    </select>
+                  </div>
+
+                  <!-- Botón -->
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-dark w-100 mt-3">Buscar Vuelos</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white px-3">
+      <div class="container text-center">
+        <h2 class="h3 fw-bold mb-4">Destinos Populares</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <a href="/vuelos?destino=paris" class="text-decoration-none">
+              <div class="card overflow-hidden shadow-sm">
+                <div class="position-relative" style="height: 200px;">
+                  <img src="/img/Paris.png" class="w-100 h-100 object-fit-cover" alt="París">
+                  <div class="position-absolute bottom-0 start-0 text-white p-3 bg-dark bg-opacity-50 w-100">
+                    <h5>París</h5>
+                    <small>Francia</small>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/vuelos?destino=tokyo" class="text-decoration-none">
+              <div class="card overflow-hidden shadow-sm">
+                <div class="position-relative" style="height: 200px;">
+                  <img src="/img/Tokyo.jpeg" class="w-100 h-100 object-fit-cover" alt="Tokio">
+                  <div class="position-absolute bottom-0 start-0 text-white p-3 bg-dark bg-opacity-50 w-100">
+                    <h5>Tokio</h5>
+                    <small>Japón</small>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/vuelos?destino=newyork" class="text-decoration-none">
+              <div class="card overflow-hidden shadow-sm">
+                <div class="position-relative" style="height: 200px;">
+                  <img src="/img/New York.jpg" class="w-100 h-100 object-fit-cover" alt="Nueva York">
+                  <div class="position-absolute bottom-0 start-0 text-white p-3 bg-dark bg-opacity-50 w-100">
+                    <h5>Nueva York</h5>
+                    <small>Estados Unidos</small>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-sky-50 px-3">
+      <div class="container text-center">
+        <h2 class="h3 fw-bold mb-4">¿Por qué elegir SkyWings?</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <div class="bg-sky-100 rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 48px; height: 48px;">
+                  <div class="bi bi-airplane"></div>
+                </div>
+                <h5>Amplia selección de vuelos</h5>
+                <p class="text-muted small">
+                  Ofrecemos vuelos a más de 100 destinos en todo el mundo con las mejores aerolíneas.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <div class="bg-sky-100 rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 48px; height: 48px;">
+                  <div class="bi bi-credit-card-fill"></div>
+                </div>
+                <h5>Precios competitivos</h5>
+                <p class="text-muted small">
+                  Garantizamos los mejores precios del mercado y ofertas exclusivas para nuestros clientes.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <div class="bg-sky-100 rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 48px; height: 48px;">
+                  <div class="bi bi-calendar-check"></div>
+                </div>
+                <h5>Reserva rápida y segura</h5>
+                <p class="text-muted small">
+                  Proceso de reserva sencillo y seguro, con confirmación instantánea y atención 24/7.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-dark text-light py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Logo y descripción -->
+        <div class="col-md-3 mb-4">
+          <h5 class="text-primary">
+            <i class="bi bi-airplane-engines"></i> SkyWings
+          </h5>
+          <p class="small">
+            Tu compañero de viaje perfecto para descubrir el mundo.
+          </p>
+        </div>
+
+        <!-- Compañía -->
+        <div class="col-md-3 mb-4">
+          <h6 class="text-uppercase fw-bold">Compañía</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-light text-decoration-none">Sobre nosotros</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Contacto</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Empleo</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Prensa</a></li>
+          </ul>
+        </div>
+
+        <!-- Destinos -->
+        <div class="col-md-3 mb-4">
+          <h6 class="text-uppercase fw-bold">Destinos</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-light text-decoration-none">Europa</a></li>
+            <li><a href="#" class="text-light text-decoration-none">América</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Asia</a></li>
+            <li><a href="#" class="text-light text-decoration-none">África</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div class="col-md-3 mb-4">
+          <h6 class="text-uppercase fw-bold">Legal</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-light text-decoration-none">Términos y condiciones</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Política de privacidad</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Línea divisoria -->
+      <hr class="border-secondary">
+
+      <!-- Copyright -->
+      <div class="text-center small text-secondary mt-3">
+        © 2025 SkyWings. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

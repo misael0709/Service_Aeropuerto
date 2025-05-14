@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalle del Vuelo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .flight-line {
+      position: relative;
+      height: 1px;
+      background: #dee2e6;
+      margin: 1rem 0;
+    }
+    .flight-line::before,
+    .flight-line::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      background: #adb5bd;
+      border-radius: 50%;
+    }
+    .flight-line::before { left: 0; }
+    .flight-line::after { right: 0; }
+  </style>
+</head>
+<body class="bg-light">
+
+<header class="bg-white shadow-sm py-3 mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="/" class="d-flex align-items-center text-decoration-none text-primary">
+      <i class="bi bi-airplane me-2"></i>
+      <span class="fs-4 fw-bold">SkyWings</span>
+    </a>
+    <div class="d-none d-md-flex gap-2">
+      <a href="/login" class="btn btn-outline-primary btn-sm">Iniciar Sesión</a>
+      <a href="/registro" class="btn btn-primary btn-sm">Registrarse</a>
+    </div>
+  </div>
+</header>
+
+<main class="container py-4">
+
+  <div class="mb-3">
+    <a href="/vuelos" class="text-primary text-decoration-none d-flex align-items-center">
+      <i class="bi bi-arrow-left me-1"></i> Volver a resultados
+    </a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+
+      <div class="card mb-4">
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center">
+              <img src="/placeholder.svg" alt="SkyWings" class="me-3" style="width:60px; height:60px; object-fit:contain;">
+              <div>
+                <h5 class="card-title mb-1">SkyWings</h5>
+                <small class="text-muted">Vuelo 1234</small>
+              </div>
+            </div>
+            <span class="badge bg-primary-subtle text-primary">Económica</span>
+          </div>
+
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-bottom pb-3 mb-4">
+            <div class="text-center mb-3 mb-md-0">
+              <div class="fs-2 fw-bold">08:30</div>
+              <div class="h5">MAD</div>
+              <div class="text-muted small">Madrid</div>
+              <div class="text-muted small">Terminal T4</div>
+            </div>
+
+            <div class="text-center mx-4">
+              <div class="text-muted small mb-2">2h 15m</div>
+              <div class="flight-line"></div>
+              <div class="text-muted small mt-2">01/05/2025</div>
+            </div>
+
+            <div class="text-center">
+              <div class="fs-2 fw-bold">10:45</div>
+              <div class="h5">CDG</div>
+              <div class="text-muted small">París</div>
+              <div class="text-muted small">Puerta B12</div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <h6>Detalles del vuelo</h6>
+              <ul class="list-unstyled small">
+                <li class="mb-2"><i class="bi bi-clock me-2"></i>Duración: 2h 15m</li>
+                <li class="mb-2"><i class="bi bi-airplane-engines me-2"></i>Avión: Airbus A320</li>
+                <li class="mb-2"><i class="bi bi-arrow-right me-2"></i>Salida: Terminal T4, 01/05/2025 08:30</li>
+                <li><i class="bi bi-arrow-left me-2"></i>Llegada: Puerta B12, 01/05/2025 10:45</li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <h6>Servicios incluidos</h6>
+              <ul class="list-unstyled small">
+                <li class="mb-2"><i class="bi bi-bag me-2"></i>Equipaje de mano</li>
+                <li class="mb-2"><i class="bi bi-cup-straw me-2"></i>Bebidas a bordo</li>
+                <li><i class="bi bi-wifi me-2"></i>WiFi disponible</li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <h6>Política de cambios</h6>
+              <p class="small text-muted">Cambios permitidos con cargo adicional. Cancelación disponible hasta 24h antes del vuelo.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Información importante</h5>
+          <div class="small text-muted">
+            <p><strong>Documentación:</strong> Lleve un documento de identidad válido o pasaporte.</p>
+            <p><strong>Check-in:</strong> Online disponible 48h antes.</p>
+            <p><strong>Equipaje:</strong> 1 pieza de mano (máx. 10kg). Facturado con costo extra.</p>
+            <p><strong>Embarque:</strong> Cierra 20 minutos antes de la salida.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card sticky-top" style="top:1rem;">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Resumen de la reserva</h5>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Vuelo</span><span class="fw-medium">1234</span></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Fecha</span><span class="fw-medium">01/05/2025</span></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Pasajeros</span><span class="fw-medium">1</span></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Clase</span><span class="fw-medium">Económica</span></div>
+          </div>
+
+          <hr>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Precio por pasajero</span><span class="fw-medium">189.99€</span></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Tasas e impuestos</span><span class="fw-medium">39.90€</span></div>
+          </div>
+
+          <hr>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between text-primary fs-5 fw-bold">
+              <span>Total</span><span>229.89€</span>
+            </div>
+          </div>
+
+          <a href="/reserva/1234?tipo=ida&pasajeros=1&clase=economy" class="btn btn-primary w-100 mb-2">
+            <i class="bi bi-credit-card me-2"></i>Continuar a la reserva
+          </a>
+
+          <p class="text-center small text-muted mb-0">Al continuar, aceptas nuestros términos y política de privacidad.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="bg-dark text-white py-4 mt-5">
+  <div class="container text-center small">
+    &copy; 2025 SkyWings. Todos los derechos reservados.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

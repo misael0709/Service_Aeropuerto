@@ -6,6 +6,6 @@ import com.cenidet.entity.Vuelos;
 
 public interface VuelosService {
 
-	public void consultaVuelo(Vuelos obj);
+	public List<Vuelos> listaVuelosFiltros(String filtro);
 	public List<Vuelos> listaVuelos();
 }

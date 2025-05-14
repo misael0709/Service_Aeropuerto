@@ -13,15 +13,17 @@ public class VuelosServiceImpl implements VuelosService{
 
 	@Autowired
 	private VuelosRepository repository;
-	
-	@Override
-	public void consultaVuelo(Vuelos obj) {
-		
-	}
 
 	@Override
 	public List<Vuelos> listaVuelos() {
 		// TODO Auto-generated method stub
 		return repository.findAll();
 	}
+
+	@Override
+	public List<Vuelos> listaVuelosFiltros(String filtro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

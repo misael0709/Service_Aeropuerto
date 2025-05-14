@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -176,15 +176,23 @@
 						    <thead>
 						        <tr>
 						            <th>Aerolínea</th>
-						            <th>Tipo</th>
+						            <th>Estado</th>
 						            <th>Salida</th>
-						            <th>Duración</th>
+						            <th>Numero de Vuelo</th>
 						            <th>Llegada</th>
 						            <th>Precio</th>
 						            <th>Acciones</th>
 						        </tr>
 						    </thead>
-						    <tbody id="flightsTable">
+						    <tbody>
+								<tr th:each="vuelo : ${vuelos}">
+								    <td th:text="${vuelo.id_aerolinea}"></td>
+								    <td th:text="${vuelo.estado}"></td>
+								    <td th:text="${vuelo.fecha_salida}"></td>
+									<td th:text="${vuelo.num_vuelo}"></td>
+									<td th:text="${vuelo.fecha_llegada}"></td>
+									<td th:text="${vuelo.precio}"></td>
+								</tr>
 						    </tbody>
 						</table>
                     </div>
@@ -199,7 +207,7 @@
                             <div class="flight-header card-header bg-light">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="/placeholder.svg" alt="SkyWings" class="flight-logo">
+										<i class="bi bi-airplane text-sky fs-4"></i>
                                         <span class="fw-medium">SkyWings</span>
                                     </div>
                                     <span class="badge bg-success">Directo</span>
@@ -334,62 +342,5 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Actualizar el año actual en el footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Script de la tabla que muestra vuelos
-		const API_URL = 'http://localhost:8080/verVuelos';
-		const loadFlights = async () => {
-		    const response = await fetch(API_URL);
-		    const flights = await response.json();
-		    const tableBody = document.getElementById('flightsTable');
-		    tableBody.innerHTML = '';
-		    
-		    flights.forEach(flight => {
-		        tableBody.innerHTML += `
-		            <tr>
-		                <td class="align-middle">
-		                    <div class="d-flex align-items-center gap-2">
-		                        <img src="${'/placeholder.svg'}" alt="${flight.aerolinea}" class="flight-logo" style="height: 24px;">
-		                        <span class="fw-medium">${flight.aerolinea}</span>
-		                    </div>
-		                </td>
-		                <td class="align-middle">
-		                    <span class="badge ${flight.direct ? 'bg-success' : 'bg-warning text-dark'}">
-		                        ${flight.direct ? 'Directo' : 'Escalas'}
-		                    </span>
-		                </td>
-		                <td class="align-middle">
-		                    <div class="d-flex flex-column">
-		                        <span class="fw-bold">${flight.fecha_salida}</span>
-		                        <span class="small text-muted">${flight.fecha_salida}</span>
-		                        <span class="fw-medium">${flight.pais}</span>
-		                    </div>
-		                </td>
-		                <td class="align-middle text-center">
-		                    <div class="d-flex flex-column align-items-center">
-		                        <span class="small text-muted">${flight.estado}</span>
-		                        <div class="border-top w-100 my-1"></div>
-		                        <i class="bi bi-arrow-right"></i>
-		                    </div>
-		                </td>
-		                <td class="align-middle">
-		                    <div class="d-flex flex-column">
-		                        <span class="fw-bold">${flight.fecha_llegada}</span>
-		                        <span class="small text-muted">${flight.fecha_llegada}</span>
-		                        <span class="fw-medium">${flight.pais}</span>
-		                    </div>
-		                </td>
-		                <td class="align-middle text-center">
-		                    <div class="flight-price fw-bold">${flight.precio}€</div>
-		                </td>
-		                <td class="align-middle text-center">
-		                    <button onclick="selectFlight(${flight.id_vuelos})" class="btn btn-primary btn-sm">Seleccionar</button>
-		                </td>
-		            </tr>`;
-		    });
-		};
-    </script>
 </body>
 </html>
