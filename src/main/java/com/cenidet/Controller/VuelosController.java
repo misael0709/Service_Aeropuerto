@@ -14,24 +14,16 @@ import com.cenidet.repository.VuelosRepository;
 import com.cenidet.service.VuelosService;
 import com.cenidet.service.VuelosServiceImpl;
 
-@Controller
+@RestController
+@RequestMapping("/api/vuelos")
 public class VuelosController {
 
 	@Autowired
 	private VuelosRepository repository;
 	
-	@GetMapping("/vuelos")
-	public String verVuelos(Model model){
-		List<Vuelos> vuelos = repository.findAll();
-		model.addAttribute("vuelos",vuelos);
-		return "vuelos";
-	}
-	
-	@GetMapping("/vuelos")
-	public String verVuelosFiltro(String filtro,Model model){
-		List<Vuelos> vuelos = repository.;
-		model.addAttribute("vuelos",vuelos);
-		return "vuelos";
+	@GetMapping("/todos")
+	public List<Vuelos> verVuelos(){
+		return repository.findAll();
 	}
 	
 }

@@ -15,15 +15,9 @@ public class VuelosServiceImpl implements VuelosService{
 	private VuelosRepository repository;
 
 	@Override
-	public List<Vuelos> listaVuelos() {
+	public List<Vuelos> verVuelos() {
 		// TODO Auto-generated method stub
 		return repository.findAll();
-	}
-
-	@Override
-	public List<Vuelos> listaVuelosFiltros(String filtro) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }
