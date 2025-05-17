@@ -171,23 +171,8 @@
             <div class="col-lg-9">
                 <div class="mb-5">
                     <h2 class="h4 fw-bold mb-3">Vuelos de ida</h2>
-                    <div class="space-y-3">
-						<table id="tablaVuelos" class="table table-hover">
-						    <thead>
-						        <tr>
-						            <th>Aerolínea</th>
-						            <th>Estado</th>
-						            <th>Salida</th>
-						            <th>Numero de Vuelo</th>
-						            <th>Llegada</th>
-						            <th>Precio</th>
-						            <th>Acciones</th>
-						        </tr>
-						    </thead>
-						    <tbody>
-								
-						    </tbody>
-						</table>
+                    <div id="vuelosContainer" class="space-y-3">
+						
                     </div>
                 </div>
 
@@ -338,23 +323,61 @@
 	<script>
 	        // Consumir la API REST desde JavaScript
 	        fetch('/api/vuelos/todos')
-	            .then(response => response.json())
-	            .then(data => {
-	                const tabla = document.querySelector('#tablaVuelos tbody');
-	                data.forEach(vuelo => {
-	                    const fila = document.createElement('tr');
-	                    fila.innerHTML = `
-						<td>${vuelo.id_aerolinea}</td>
-						<td>${vuelo.estado}</td>
-						<td>${vuelo.fecha_salida}</td>
-						<td>${vuelo.num_vuelo}</td>
-						<td>${vuelo.fecha_llegada}</td>
-						<td>${vuelo.precio}</td>
-	                    `;
-	                    tabla.appendChild(fila);
-	                });
-	            })
-	            .catch(error => console.error('Error:', error));
+			.then(response => response.json())
+			        .then(data => {
+			            const vuelosContainer = document.querySelector('#vuelosContainer');
+			            
+			            data.forEach(vuelo => {
+			                const card = document.createElement('div');
+			                card.className = 'flight-card card mb-3';
+
+			                card.innerHTML = `
+			                    <div class="flight-header card-header bg-light">
+			                        <div class="d-flex justify-content-between align-items-center">
+			                            <div class="d-flex align-items-center gap-2">
+			                                
+			                                <span class="fw-medium">${vuelo.aerolinea}</span>
+			                            </div>
+			                            <span class="badge ${vuelo.estado === 'Directo' ? 'bg-success' : 'bg-warning'}">
+			                                ${vuelo.estado}
+			                            </span>
+			                        </div>
+			                    </div>
+			                    <div class="flight-body card-body">
+			                        <div class="row align-items-center">
+			                            <div class="col-md-4">
+			                                <div class="d-flex flex-column text-center">
+			                                    <span class="fw-bold fs-5">${vuelo.horaSalida}</span>
+			                                    <span class="small text-muted">${vuelo.fechaSalida}</span>
+			                                    <span class="fw-medium">${vuelo.codigoISOOrigen}</span>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-2 text-center">
+			                                <div class="d-flex flex-column align-items-center">
+			                                    <span class="small text-muted">${vuelo.distanciaKm} km</span>
+			                                    <div class="border-top w-100 my-1"></div>
+			                                    <i class="bi bi-arrow-right"></i>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-4">
+			                                <div class="d-flex flex-column text-center">
+			                                    <span class="fw-bold fs-5">${vuelo.horaLlegada}</span>
+			                                    <span class="small text-muted">${vuelo.fechaLlegada}</span>
+			                                    <span class="fw-medium">${vuelo.codigoISODestino}</span>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-2 text-center">
+			                                <div class="flight-price">$ ${vuelo.precio}</div>
+			                                <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			                `;
+
+			                vuelosContainer.appendChild(card);
+			            });
+			        })
+			        .catch(error => console.error('Error:', error));
 	</script>
 </body>
 </html>

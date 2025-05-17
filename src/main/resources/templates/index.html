@@ -53,34 +53,21 @@
         <div class="card shadow">
           <div class="card-body">
             <div class="container my-5 p-4 bg-light rounded shadow-sm">
-              <!-- Tipo de viaje -->
-              <div class="btn-group w-100 mb-4" role="group">
-                <input type="radio" class="btn-check" name="tipo_viaje" id="ida_vuelta" autocomplete="off" checked>
-                <label class="btn btn-outline-secondary" for="ida_vuelta">Ida y vuelta</label>
-
-                <input type="radio" class="btn-check" name="tipo_viaje" id="solo_ida" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="solo_ida">Solo ida</label>
-              </div>
-
               <!-- Formulario de búsqueda -->
-              <form>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="origen" class="form-label">Origen</label>
-                    <select id="origen" class="form-select">
-                      <option selected>Selecciona origen</option>
-                      <option>Ciudad A</option>
-                      <option>Ciudad B</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="destino" class="form-label">Destino</label>
-                    <select id="destino" class="form-select">
-                      <option selected>Selecciona destino</option>
-                      <option>Ciudad X</option>
-                      <option>Ciudad Y</option>
-                    </select>
-                  </div>
+              <form id="busquedaForm" action="/vuelos.html" method="get">
+				<div class="row g-3">
+				    <div class="col-md-6">
+				        <label for="origen" class="form-label">Origen</label>
+				        <select id="origen" class="form-select">
+				            <option value="" selected>Selecciona origen</option>
+				        </select>
+				    </div>
+				    <div class="col-md-6">
+				        <label for="destino" class="form-label">Destino</label>
+				        <select id="destino" class="form-select">
+				            <option value="" selected>Selecciona destino</option>
+				        </select>
+				    </div>
 
                   <div class="col-md-6">
                     <label for="fecha_salida" class="form-label">Fecha de salida</label>
@@ -95,24 +82,6 @@
                       <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                       <input type="date" class="form-control" id="fecha_regreso">
                     </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="pasajeros" class="form-label">Pasajeros</label>
-                    <select id="pasajeros" class="form-select">
-                      <option selected>1 Pasajero</option>
-                      <option>2 Pasajeros</option>
-                      <option>3 Pasajeros</option>
-                      <option>4+ Pasajeros</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="clase" class="form-label">Clase</label>
-                    <select id="clase" class="form-select">
-                      <option selected>Económica</option>
-                      <option>Ejecutiva</option>
-                      <option>Primera Clase</option>
-                    </select>
                   </div>
 
                   <!-- Botón -->
@@ -276,5 +245,45 @@
       </div>
     </div>
   </footer>
+  <script>
+	document.addEventListener('DOMContentLoaded', function() {
+	    cargarPaisesEnSelect('origen');
+	    cargarPaisesEnSelect('destino');
+	});
+
+	function cargarPaisesEnSelect(idSelect) {
+	    fetch('/api/paises')
+	        .then(response => response.json())
+	        .then(paises => {
+	            const select = document.getElementById(idSelect);
+	            
+	            paises.forEach(pais => {
+	                const option = document.createElement('option');
+	                option.value = pais.codigoIso; // Usamos el código ISO como valor
+	                option.textContent = pais.nombre; // Mostramos el nombre del país
+	                select.appendChild(option);
+	            });
+	        })
+	        .catch(error => console.error('Error al cargar países:', error));
+	}
+  </script>
+  <script>
+	document.getElementById('busquedaForm').addEventListener('submit', function(e) {
+	    e.preventDefault();
+	    
+	    const params = new URLSearchParams();
+		const origen = document.getElementById('origen').value;
+		const destino = document.getElementById('destino').value;
+		const fechaSalida = document.getElementById('fecha_salida').value;
+		if(origen)
+	    params.append('origen',origen);
+		if(destino)
+	    params.append('destino', destino);
+	    if(fechaSalida)
+		params.append('fechaSalida', fechaSalida);
+	    
+	    window.location.href = `/vuelos?${params.toString()}`;
+	});
+  </script>
 </body>
 </html>
