@@ -93,12 +93,20 @@
 
                 <form id="register-form">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nombre completo</label>
+                        <label for="nombre" class="form-label">Nombre</label>
                         <div class="position-relative">
                             <i class="bi bi-person form-icon"></i>
-                            <input type="text" class="form-control form-control-with-icon" id="name" placeholder="Tu nombre" required>
+                            <input type="text" class="form-control form-control-with-icon" id="nombre" placeholder="Tu nombre (s)" required>
                         </div>
                     </div>
+
+					<div class="mb-3">
+					    <label for="apellidos" class="form-label">Apellidos</label>
+					    <div class="position-relative">
+					        <i class="bi bi-person form-icon"></i>
+					        <input type="text" class="form-control form-control-with-icon" id="apellidos" placeholder="Tus apellidos" required>
+					    </div>
+					</div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico</label>
@@ -108,6 +116,13 @@
                         </div>
                     </div>
 
+					<div class="mb-3">
+						<label for="telefono" class="form-label">Teléfono</label>
+						<div class="position-relative">
+							<i class="bi bi-phone form-icon"></i>
+							<input type= "tel" class="form-control form-control-with-icon" id="telefono" placeholder="7778652981" required>
+						</div>
+					</div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
                         <div class="position-relative">
@@ -122,13 +137,6 @@
                             <i class="bi bi-lock form-icon"></i>
                             <input type="password" class="form-control form-control-with-icon" id="confirm-password" required>
                         </div>
-                    </div>
-
-                    <div class="form-check mb-4">
-                        <input class="form-check-input" type="checkbox" id="terms">
-                        <label class="form-check-label" for="terms">
-                            Acepto los <a href="/terminos" class="terms-link">términos y condiciones</a>
-                        </label>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-3" id="register-button">

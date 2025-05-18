@@ -22,4 +22,9 @@ public class PaginaController {
 	public String login() {
 		return "login";
 	}
+	
+	@RequestMapping("/form_registros")
+	public String form_registros() {
+		return "form_registros";
+	}
 }

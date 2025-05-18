@@ -321,63 +321,110 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-	        // Consumir la API REST desde JavaScript
-	        fetch('/api/vuelos/todos')
-			.then(response => response.json())
-			        .then(data => {
-			            const vuelosContainer = document.querySelector('#vuelosContainer');
-			            
-			            data.forEach(vuelo => {
-			                const card = document.createElement('div');
-			                card.className = 'flight-card card mb-3';
+		// Función para obtener parámetros de la URL
+		function getQueryParams() {
+		    const params = new URLSearchParams(window.location.search);
+		    return {
+		        origen: params.get('origen'),
+		        destino: params.get('destino'),
+		        fechaSalida: params.get('fechaSalida')
+		    };
+		}
+		
+		// Función para cargar vuelos con filtros
+		function cargarVuelosFiltrados(filtros) {
+		    // Construye la URL de la API con los parámetros
+		    let apiUrl = '/api/vuelos/todos';
+		    const queryParams = [];
+		    
+		    if (filtros.origen) queryParams.push(`origen=${encodeURIComponent(filtros.origen)}`);
+		    if (filtros.destino) queryParams.push(`destino=${encodeURIComponent(filtros.destino)}`);
+		    if (filtros.fechaSalida) queryParams.push(`fechaSalida=${encodeURIComponent(filtros.fechaSalida)}`);
+		    
+		    if (queryParams.length > 0) {
+		        apiUrl += `?${queryParams.join('&')}`;
+		    }
 
-			                card.innerHTML = `
-			                    <div class="flight-header card-header bg-light">
-			                        <div class="d-flex justify-content-between align-items-center">
-			                            <div class="d-flex align-items-center gap-2">
-			                                
-			                                <span class="fw-medium">${vuelo.aerolinea}</span>
-			                            </div>
-			                            <span class="badge ${vuelo.estado === 'Directo' ? 'bg-success' : 'bg-warning'}">
-			                                ${vuelo.estado}
-			                            </span>
-			                        </div>
-			                    </div>
-			                    <div class="flight-body card-body">
-			                        <div class="row align-items-center">
-			                            <div class="col-md-4">
-			                                <div class="d-flex flex-column text-center">
-			                                    <span class="fw-bold fs-5">${vuelo.horaSalida}</span>
-			                                    <span class="small text-muted">${vuelo.fechaSalida}</span>
-			                                    <span class="fw-medium">${vuelo.codigoISOOrigen}</span>
-			                                </div>
-			                            </div>
-			                            <div class="col-md-2 text-center">
-			                                <div class="d-flex flex-column align-items-center">
-			                                    <span class="small text-muted">${vuelo.distanciaKm} km</span>
-			                                    <div class="border-top w-100 my-1"></div>
-			                                    <i class="bi bi-arrow-right"></i>
-			                                </div>
-			                            </div>
-			                            <div class="col-md-4">
-			                                <div class="d-flex flex-column text-center">
-			                                    <span class="fw-bold fs-5">${vuelo.horaLlegada}</span>
-			                                    <span class="small text-muted">${vuelo.fechaLlegada}</span>
-			                                    <span class="fw-medium">${vuelo.codigoISODestino}</span>
-			                                </div>
-			                            </div>
-			                            <div class="col-md-2 text-center">
-			                                <div class="flight-price">$ ${vuelo.precio}</div>
-			                                <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
-			                            </div>
-			                        </div>
-			                    </div>
-			                `;
+		    // Consumir la API REST con los filtros
+		    fetch(apiUrl)
+		        .then(response => response.json())
+		        .then(data => {
+		            const vuelosContainer = document.querySelector('#vuelosContainer');
+		            vuelosContainer.innerHTML = ''; // Limpiar contenedor antes de agregar nuevos resultados
+		            
+		            if (data.length === 0) {
+		                vuelosContainer.innerHTML = `
+		                    <div class="alert alert-info">
+		                        No se encontraron vuelos con los filtros seleccionados.
+		                    </div>
+		                `;
+		                return;
+		            }
 
-			                vuelosContainer.appendChild(card);
-			            });
-			        })
-			        .catch(error => console.error('Error:', error));
+		            data.forEach(vuelo => {
+		                const card = document.createElement('div');
+		                card.className = 'flight-card card mb-3';
+
+		                card.innerHTML = `
+		                    <div class="flight-header card-header bg-light">
+		                        <div class="d-flex justify-content-between align-items-center">
+		                            <div class="d-flex align-items-center gap-2">
+		                                <span class="fw-medium">${vuelo.aerolinea}</span>
+		                            </div>
+		                            <span class="badge ${vuelo.estado === 'Directo' ? 'bg-success' : 'bg-warning'}">
+		                                ${vuelo.estado}
+		                            </span>
+		                        </div>
+		                    </div>
+		                    <div class="flight-body card-body">
+		                        <div class="row align-items-center">
+		                            <div class="col-md-4">
+		                                <div class="d-flex flex-column text-center">
+		                                    <span class="fw-bold fs-5">${vuelo.horaSalida}</span>
+		                                    <span class="small text-muted">${vuelo.fechaSalida}</span>
+		                                    <span class="fw-medium">${vuelo.codigoISOOrigen}</span>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-2 text-center">
+		                                <div class="d-flex flex-column align-items-center">
+		                                    <span class="small text-muted">${vuelo.distanciaKm} km</span>
+		                                    <div class="border-top w-100 my-1"></div>
+		                                    <i class="bi bi-arrow-right"></i>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-4">
+		                                <div class="d-flex flex-column text-center">
+		                                    <span class="fw-bold fs-5">${vuelo.horaLlegada}</span>
+		                                    <span class="small text-muted">${vuelo.fechaLlegada}</span>
+		                                    <span class="fw-medium">${vuelo.codigoISODestino}</span>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-2 text-center">
+		                                <div class="flight-price">$ ${vuelo.precio}</div>
+		                                <a href="#" class="btn btn-primary btn-sm mt-2 w-100">Seleccionar</a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                `;
+
+		                vuelosContainer.appendChild(card);
+		            });
+		        })
+		        .catch(error => {
+		            console.error('Error:', error);
+		            document.querySelector('#vuelosContainer').innerHTML = `
+		                <div class="alert alert-danger">
+		                    Ocurrió un error al cargar los vuelos. Por favor, inténtalo nuevamente.
+		                </div>
+		            `;
+		        });
+		}
+		
+		// Cuando la página carga, lee los parámetros y carga los vuelos
+		document.addEventListener('DOMContentLoaded', function() {
+		    const filtros = getQueryParams();
+		    cargarVuelosFiltrados(filtros);
+		});
 	</script>
 </body>
 </html>
