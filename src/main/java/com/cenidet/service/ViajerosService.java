@@ -12,7 +12,7 @@ public class ViajerosService {
 	@Autowired
 	private ViajerosRepository viajerosRepository;
 	
-	public Viajeros registrar(Viajeros Viajero) {
-		return viajerosRepository.save(Viajero);
+	public Viajeros registrar(Viajeros Viajeros) {
+        return viajerosRepository.save(Viajeros);
 	}
 }
